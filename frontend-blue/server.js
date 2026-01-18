@@ -1,35 +1,27 @@
-const express = require('express');
-const path = require('path');
-require('dotenv').config();
+const http = require("http");
 
-const app = express();
-const PORT = process.env.PORT || 3100;
+const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Routes
-// Serve index.html as the main page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/html" });
+  res.end(`
+    <html>
+      <head><title>BLUE UI</title></head>
+      <body style="
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:blue;
+        color:white;
+        font-family:Arial">
+        <h1>BLUE UI</h1>
+      </body>
+    </html>
+  `);
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'ok', 
-    message: 'Basic frontend is running', 
-    version: 'basic',
-    port: PORT
-  });
-});
-
-// Start the server
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Basic frontend server running on port ${PORT}`);
-  console.log(`Accessible at http://localhost:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Blue frontend running on port ${PORT}`);
 });
