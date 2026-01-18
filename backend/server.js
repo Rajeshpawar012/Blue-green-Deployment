@@ -24,5 +24,5 @@ app.get('/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend server running on port ${PORT}`);
+  console.log("Backend version v2 - Blue Green demo");
 });
